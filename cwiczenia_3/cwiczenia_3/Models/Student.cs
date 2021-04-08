@@ -10,8 +10,8 @@ namespace cwiczenia_2.Models
     [Serializable]
     public class Student
     {
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
+        [JsonPropertyName("FirstName")]
+        public string FirstName { get; set; }
         [JsonPropertyName("LastName")]
         public string LastName { get; set; }
         [JsonPropertyName("Index_number")]
@@ -27,6 +27,10 @@ namespace cwiczenia_2.Models
         [JsonPropertyName("Studies")]
         public Studies Studies { get; set; }
 
+        public override string ToString()
+        {
+            return (FirstName+ ","+LastName+","+Index_number+","+BirthDate+","+Studies.ToString()+","+Email+","+FathersName+","+MothersName+"\n");
 
+        }
     }
 }

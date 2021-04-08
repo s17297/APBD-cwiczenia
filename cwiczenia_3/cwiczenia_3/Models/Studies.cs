@@ -15,5 +15,10 @@ namespace cwiczenia_2.Models
         public string Course { get; set; }
         [JsonPropertyName("Mode")]
         public string Mode { get; set; }
+
+        public override string ToString()
+        {
+            return (Course + "," + Mode);
+        }
     }
 }
