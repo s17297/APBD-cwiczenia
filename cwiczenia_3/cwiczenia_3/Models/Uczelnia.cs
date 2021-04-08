@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace cwiczenia_2.Models
+namespace cwiczenia_3.Models
 {
     [Serializable]
     class Uczelnia
