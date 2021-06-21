@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using cwiczenia_5.Models;
+using cwiczenia_5.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,10 +9,25 @@ using System.Threading.Tasks;
 
 namespace cwiczenia_5.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+
+    [Route("api/warehouses")]
     public class WarehousesController : ControllerBase
     {
-        public IActionResult 
+        private readonly IWarehouseService _warehouseService;
+        public WarehousesController(IWarehouseService warehouseService)
+        {
+            _warehouseService = warehouseService;
+
+        }
+        [HttpPost]
+        public IActionResult AddOrder(Order order)
+        {
+
+            _warehouseService.CreateOrder(order);
+            /* _sqlDbService.CreateOrder(order);*/
+
+            return Ok();
+        }
     }
 }

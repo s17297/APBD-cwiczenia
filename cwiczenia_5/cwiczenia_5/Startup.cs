@@ -1,3 +1,4 @@
+using cwiczenia_5.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,7 @@ namespace cwiczenia_5
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "cwiczenia_5", Version = "v1" });
             });
+            services.AddTransient<IWarehouseService, WarehouseService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
