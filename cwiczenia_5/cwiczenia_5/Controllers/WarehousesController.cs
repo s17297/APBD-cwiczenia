@@ -24,8 +24,8 @@ namespace cwiczenia_5.Controllers
         public IActionResult AddOrder(Order order)
         {
 
-            _warehouseService.CreateOrder(order);
-            /* _sqlDbService.CreateOrder(order);*/
+            //_warehouseService.CreateOrder(order);
+            _warehouseService.CreateOrderProcedure(order);
 
             return Ok();
         }

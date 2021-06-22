@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
@@ -14,8 +15,11 @@ namespace cwiczenia_5.Services
     public interface IWarehouseService{
          public IEnumerable<Order> GetOrders();
     public IEnumerable<Order> CreateOrder(Order order);
-}
-public class WarehouseService : IWarehouseService
+
+    public IEnumerable<Order> CreateOrderProcedure(Order order);
+
+    }
+    public class WarehouseService : IWarehouseService
         
     {
       /*  public IEnumerable<Order> CreateOrder(Order order)
@@ -108,11 +112,32 @@ public class WarehouseService : IWarehouseService
             {
                 tran.Rollback();
                 throw new Exception();
-                Console.WriteLine("blad w zapytaniu sql");
             }
+            cn.Close();
 
 /*            throw new Exception("sdfa");
 */            return null;
+        }
+
+        public IEnumerable<Order> CreateOrderProcedure(Order order)
+        {
+            using var con = new SqlConnection("Data Source=db-mssql16.pjwstk.edu.pl;Initial Catalog=s17297;Integrated Security=True");
+            using var com = new SqlCommand("AddProductToWarehouse", con);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.AddWithValue("IdProduct", order.IdProduct);
+            com.Parameters.AddWithValue("idWarehouse", order.IdWarehouse);
+            com.Parameters.AddWithValue("amount", order.Amount);
+            com.Parameters.AddWithValue("createdAt", order.CreatedAt);
+
+            con.Open();
+            try
+            {
+                com.ExecuteNonQuery();
+            }
+            catch (SqlException e) {
+                throw new Exception();
+            }
+            return null;   
         }
 
         public IEnumerable<Order> GetOrders()
